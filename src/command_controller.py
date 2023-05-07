@@ -28,7 +28,8 @@ class CommandController:
     def execute_command(self):
         self.get_open_fingers()
         
-        print(self.fingers)
+        if self.fingers == [0, 1, 0, 0, 1]:
+            subprocess.call(["sh", "src/commands/command1.sh"])
     
     def run(self):
         cap = cv2.VideoCapture(0)
