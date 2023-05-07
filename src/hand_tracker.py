@@ -1,41 +1,55 @@
 import cv2
 import mediapipe as mp
-import time
 
-captured = cv2.VideoCapture(0)
+class HandTracker():
+    def __init__(self, mode=False, maxHands=2, detectionCon=0.5,modelComplexity=1,trackCon=0.5):
+        self.mode = mode
+        self.maxHands = maxHands
+        self.detectionCon = detectionCon
+        self.modelComplex = modelComplexity
+        self.trackCon = trackCon
+        self.mpHands = mp.solutions.hands
+        self.hands = self.mpHands.Hands(self.mode, self.maxHands,self.modelComplex,
+                                        self.detectionCon, self.trackCon)
+        self.mpDraw = mp.solutions.drawing_utils
+        
+    def handsFinder(self,image,draw=True):
+        imageRGB = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+        self.results = self.hands.process(imageRGB)
 
-mpHands = mp.solutions.hands
-mpDraw = mp.solutions.drawing_utils
-hands = mpHands.Hands()
+        if self.results.multi_hand_landmarks:
+            for handLms in self.results.multi_hand_landmarks:
 
-prevTime = 0
-currentTime = time.time()
+                if draw:
+                    self.mpDraw.draw_landmarks(image, handLms, self.mpHands.HAND_CONNECTIONS)
+        return image
 
-while True:
-    success, img = captured.read()
-    imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    results = hands.process(img)
+    def positionFinder(self,image, handNo=0, draw=False):
+        lmlist = []
+        if self.results.multi_hand_landmarks:
+            Hand = self.results.multi_hand_landmarks[handNo]
+            for id, lm in enumerate(Hand.landmark):
+                h,w,c = image.shape
+                cx,cy = int(lm.x*w), int(lm.y*h)
+                lmlist.append([id,cx,cy])
+            if draw:
+                cv2.circle(image,(cx,cy), 15 , (255,0,255), cv2.FILLED)
 
-    # Getting the hand landmarks
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
-            for id, landmark in enumerate(hand_landmarks.landmark):
-                height, width, channel = img.shape
-                center_x, center_y = int(landmark.x*width), int(landmark.y*height)
-                print(f"{id}. x={center_x} y={center_y}")
-                
-                # Uncomment the following lines of code and replace 'n' with any number from 0-20
-                # if id == n :
-                #     cv2.circle(img, (center_x, center_y), 15, (0, 0, 0), cv2.FILLED)
-                
-            mpDraw.draw_landmarks(img, hand_landmarks, mpHands.HAND_CONNECTIONS)
+        return lmlist
 
-    # Framerate Calculation
-    currentTime = time.time()
-    fps = 1/(currentTime-prevTime)
-    prevTime = currentTime
-    cv2.putText(img, "FPS : "+str(int(fps)), (10, 50), cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (0, 0, 0), 2)
+def main():
+    cap = cv2.VideoCapture(0)
+    tracker = HandTracker()
 
-    # Displaying the image
-    cv2.imshow("Camera", img)
-    cv2.waitKey(1)
+    while True:
+        success,image = cap.read()
+        image = tracker.handsFinder(image)
+        lmList = tracker.positionFinder(image)
+        if len(lmList) != 0:
+            print(lmList[4])
+
+        cv2.imshow("Video",image)
+        cv2.waitKey(1)
+
+if __name__ == "__main__":
+    main()
