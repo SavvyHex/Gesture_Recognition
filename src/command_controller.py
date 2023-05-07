@@ -1,4 +1,3 @@
-import time
 import cv2
 import os
 import subprocess
@@ -7,6 +6,7 @@ import hand_tracker as ht
 
 class CommandController:
     def __init__(self) -> None:
+        self.system = os.name
         self.tracker = ht.HandTracker(maxHands=1)
         self.fingers = list()
         
@@ -29,7 +29,10 @@ class CommandController:
         self.get_open_fingers()
         
         if self.fingers == [0, 1, 0, 0, 1]:
-            subprocess.call(["sh", "src/commands/command1.sh"])
+            if self.system.lower() == "windows":
+                subprocess.call(["sh", "src/commands/command1.sh"])
+            else:
+                subprocess.call([r"src/commands/command1.bat"])
     
     def run(self):
         cap = cv2.VideoCapture(0)
