@@ -30,9 +30,9 @@ class CommandController:
         
         if self.fingers == [0, 1, 0, 0, 1]:
             if self.system.lower() == "windows":
-                subprocess.call(["sh", "src/commands/command1.sh"])
-            else:
                 subprocess.call([r"src/commands/command1.bat"])
+            else:
+                subprocess.call(["sh", "src/commands/command1.sh"])
     
     def run(self):
         cap = cv2.VideoCapture(0)
