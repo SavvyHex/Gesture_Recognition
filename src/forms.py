@@ -36,7 +36,7 @@ class Login:
         self.passwd = self.passText.get()
         
         self.root.destroy()
-        Home()
+        Home(self.name=="admin")
         
 if __name__ == "__main__":
     Login("white")
