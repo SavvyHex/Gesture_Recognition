@@ -41,6 +41,8 @@ class CommandController:
             img = self.tracker.handsFinder(img)
             self.lmList = self.tracker.positionFinder(img)
             cv2.imshow("Video",img)
+            if cv2.waitKey(5) & 0xFF == ord('q'):
+                cap.release()
             self.execute_command()
             cv2.waitKey(1)
             
