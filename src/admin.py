@@ -18,7 +18,7 @@ class AdminScreen:
         self.root.mainloop()
         
     def buttons(self):
-        self.submit = tkinter.Button(self.root, text="Submit")
+        self.submit = tkinter.Button(self.root, text="Submit").place(x=260, y=400)
         
 if __name__ == "__main__":
     AdminScreen()
