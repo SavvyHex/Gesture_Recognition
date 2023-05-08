@@ -9,9 +9,9 @@ class Home:
     def __init__(self, admin=False) -> None:
         
         self.colours = {"eggplant" : "#6C464F", 
-                        "mb pink" : "9E768F", 
-                        "cool gray" : "9FA4C4", 
-                        "light blue": "B3CDD1"
+                        "mb pink" : "#9E768F", 
+                        "cool gray" : "#9FA4C4", 
+                        "light blue": "#B3CDD1"
                     }
         
         self.isAdmin = admin
