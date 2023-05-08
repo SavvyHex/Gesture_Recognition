@@ -1,15 +1,20 @@
 import tkinter
+import tkinter.messagebox
+
 import command_controller
 import admin
+import forms
 
 class Home:
-    def __init__(self) -> None:
+    def __init__(self, admin=False) -> None:
         
         self.colours = {"eggplant" : "#6C464F", 
                         "mb pink" : "9E768F", 
                         "cool gray" : "9FA4C4", 
                         "light blue": "B3CDD1"
                     }
+        
+        self.isAdmin = admin
         
         self.cc = command_controller.CommandController()
         self.root = tkinter.Tk()
@@ -34,7 +39,10 @@ class Home:
         self.adminScreen.place(x=200, y=240)
 
     def admin_screen(self):
-        admin.AdminScreen()
+        if self.isAdmin:
+            admin.AdminScreen()
+        else:
+            tkinter.messagebox.Message(self.root, message="You need to be admin to login")
         
 if __name__ == "__main__":
-    Home()
+    forms.Login(bgcol="#6C464F")

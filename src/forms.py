@@ -2,9 +2,10 @@ import tkinter
 
 class Login:
     def __init__(self, bgcol) -> None:
+        self.bgcol = bgcol
         self.root = tkinter.Tk()
         self.root.title("Login Screen")
-        self.root.configure(bg=bgcol)
+        self.root.configure(bg=self.bgcol)
         
         self.labels()
         self.inputs()
@@ -22,17 +23,20 @@ class Login:
         self.submit.grid(row=3, column=2)
         
     def labels(self):
-        self.unameLabel = tkinter.Label(self.root, text="Username : ")
+        self.unameLabel = tkinter.Label(self.root, text="Username : ", bg=self.bgcol)
         self.unameLabel.grid(row=1, column=1)
         
-        self.passLabel = tkinter.Label(self.root, text="Password : ")
+        self.passLabel = tkinter.Label(self.root, text="Password : ", bg=self.bgcol)
         self.passLabel.grid(row=2, column=1)
         
     def submit(self):
+        from main import Home
+        
         self.name = self.unameText.get()
         self.passwd = self.passText.get()
         
-        print(self.name, self.passwd)
+        self.root.destroy()
+        Home()
         
 if __name__ == "__main__":
     Login("white")
