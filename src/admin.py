@@ -61,7 +61,10 @@ class AdminScreen:
         self.cursor.execute(f"insert into gestures values({self.code}, {self.file})")
 
         self.connection.commit()
+
+        self.cursor.close()
         self.connection.close()
+        
         self.root.destroy()
         tkinter.messagebox.Message(self.root, message="Database Successfully Updated")
         
