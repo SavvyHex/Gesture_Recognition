@@ -6,12 +6,6 @@ class AdminScreen:
     def __init__(self) -> None:
         self.connection = mysql.connector.connect(user="saketh", password="notpassword", host="localhost", database="smartges")
         self.cursor = self.connection.cursor()
-    
-        self.thumb = tkinter.BooleanVar()
-        self.index = tkinter.BooleanVar()
-        self.middle = tkinter.BooleanVar()
-        self.ring = tkinter.BooleanVar()
-        self.pinky = tkinter.BooleanVar()
 
         self.colours = {"eggplant" : "#6C464F", 
                         "mb pink" : "#9E768F", 
@@ -23,6 +17,12 @@ class AdminScreen:
         self.root.title("Admin Screen")
         self.root.geometry("640x480")
         self.root.configure(bg=self.colours["cool gray"])
+
+        self.thumb = tkinter.BooleanVar()
+        self.index = tkinter.BooleanVar()
+        self.middle = tkinter.BooleanVar()
+        self.ring = tkinter.BooleanVar()
+        self.pinky = tkinter.BooleanVar()
         
         self.labels()
         self.textbox()
@@ -58,13 +58,13 @@ class AdminScreen:
         self.code = f"{1 if self.thumb else 0}{1 if self.index else 0}{1 if self.middle else 0}{1 if self.ring else 0}{1 if self.pinky else 0}"
 
         self.file = self.fileName.get()
-        self.cursor.execute(f"insert into gestures values({self.code}, {self.file})")
+        self.cursor.execute(f"insert into gestures values('{self.code}', '{self.file}')")
 
         self.connection.commit()
 
         self.cursor.close()
         self.connection.close()
-        
+
         self.root.destroy()
         tkinter.messagebox.Message(self.root, message="Database Successfully Updated")
         
