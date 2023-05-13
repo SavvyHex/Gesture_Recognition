@@ -48,14 +48,23 @@ class AdminScreen:
         self.submit = tkinter.Button(self.root, text="Submit", command=self.submit)
         self.submit.place(x=300, y=400)
 
-        self.thumbButton = tkinter.Checkbutton(self.root, text="Thumb", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.thumb).place(x=50, y=220)
-        self.indexButton = tkinter.Checkbutton(self.root, text="Index", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.index).place(x=50, y=260)
-        self.middleButton = tkinter.Checkbutton(self.root, text="Middle", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.middle).place(x=50, y=300)
-        self.ringButton = tkinter.Checkbutton(self.root, text="Ring", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.ring).place(x=50, y=340)
-        self.pinkyButton = tkinter.Checkbutton(self.root, text="Pinky", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.pinky).place(x=50, y=380)
-
+        self.thumbButton = tkinter.Checkbutton(self.root, text="Thumb", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.thumb)
+        self.thumbButton.place(x=50, y=220)
+        
+        self.indexButton = tkinter.Checkbutton(self.root, text="Index", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.index)
+        self.indexButton.place(x=50, y=260)
+        
+        self.middleButton = tkinter.Checkbutton(self.root, text="Middle", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.middle)
+        self.middleButton.place(x=50, y=300)
+        
+        self.ringButton = tkinter.Checkbutton(self.root, text="Ring", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.ring)
+        self.ringButton.place(x=50, y=340)
+        
+        self.pinkyButton = tkinter.Checkbutton(self.root, text="Pinky", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.pinky)
+        self.pinkyButton.place(x=50, y=380)
+        
     def submit(self):
-        self.code = f"{1 if self.thumb else 0}{1 if self.index else 0}{1 if self.middle else 0}{1 if self.ring else 0}{1 if self.pinky else 0}"
+        self.code = f"{int(self.thumb.get())}{int(self.index.get())}{int(self.middle.get())}{int(self.ring.get())}{int(self.pinky.get())}"
 
         self.file = self.fileName.get()
         self.cursor.execute(f"insert into gestures values('{self.code}', '{self.file}')")
@@ -66,7 +75,7 @@ class AdminScreen:
         self.connection.close()
 
         self.root.destroy()
-        tkinter.messagebox.Message(self.root, message="Database Successfully Updated")
+        tkinter.messagebox.showinfo("Database Updated", "Database Successfully Updated")
         
 if __name__ == "__main__":
     AdminScreen()

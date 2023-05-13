@@ -42,7 +42,7 @@ class Home:
         if self.isAdmin:
             admin.AdminScreen()
         else:
-            tkinter.messagebox.Message(self.root, message="You need to be admin to login")
+            tkinter.messagebox.showinfo("Error", "You need to be an admin")
         
 if __name__ == "__main__":
     forms.Login(bgcol="#6C464F")
