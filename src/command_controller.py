@@ -29,13 +29,14 @@ class CommandController:
         self.get_open_fingers()
         
         if self.fingers == [0, 1, 0, 0, 1]:
-            if self.system.lower() == "windows":
-                subprocess.call([r"src/commands/command1.bat"])
+            if self.system.lower() == "nt":
+                proccess = subprocess.Popen(["C:/Users/neetu\Desktop/Saketh's Stuff/Gesture_Recognition/src/commands/command1.bat"])
+                proccess.wait()
             else:
                 subprocess.call(["sh", "src/commands/command1.sh"])
     
     def run(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(1)
         while True:
             success,img = cap.read()
             img = self.tracker.handsFinder(img)

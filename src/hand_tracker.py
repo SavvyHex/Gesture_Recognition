@@ -38,7 +38,7 @@ class HandTracker():
         return lmlist
 
 def main():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     tracker = HandTracker()
 
     while True:
