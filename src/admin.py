@@ -18,11 +18,11 @@ class AdminScreen:
         self.root.geometry("640x480")
         self.root.configure(bg=self.colours["cool gray"])
 
-        self.thumb = tkinter.BooleanVar()
-        self.index = tkinter.BooleanVar()
-        self.middle = tkinter.BooleanVar()
-        self.ring = tkinter.BooleanVar()
-        self.pinky = tkinter.BooleanVar()
+        self.thumb = tkinter.BooleanVar(value=False)
+        self.index = tkinter.BooleanVar(value=False)
+        self.middle = tkinter.BooleanVar(value=False)
+        self.ring = tkinter.BooleanVar(value=False)
+        self.pinky = tkinter.BooleanVar(value=False)
         
         self.labels()
         self.textbox()
