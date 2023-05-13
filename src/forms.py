@@ -1,7 +1,11 @@
+import mysql.connector
 import tkinter
 
 class Login:
     def __init__(self, bgcol) -> None:
+        self.connection = mysql.connector.connect(user="saketh", password="notpassword", host="localhost", database="smartges")
+        self.cursor = self.connection.cursor()
+
         self.bgcol = bgcol
         self.root = tkinter.Tk()
         self.root.title("Login Screen")
@@ -28,15 +32,28 @@ class Login:
         
         self.passLabel = tkinter.Label(self.root, text="Password : ", bg=self.bgcol)
         self.passLabel.grid(row=2, column=1)
+
+    def validate(self):
+        self.cursor.execute("select * from users")
+
+        rows = self.cursor.fetchall()
+        for row in rows:
+            if self.name == row[0] and self.passwd == row[1]:
+                return True
+        return False
         
     def submit(self):
         from main import Home
         
         self.name = self.unameText.get()
         self.passwd = self.passText.get()
-        
-        self.root.destroy()
-        Home(self.name=="admin")
+
+        if self.validate():
+            self.connection.close()
+            self.root.destroy()
+            Home(self.name=="admin")
+        else:
+            print("Error")
         
 if __name__ == "__main__":
     Login("white")
