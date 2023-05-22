@@ -53,10 +53,10 @@ class Login:
             self.root.destroy()
             Home(self.name=="admin")
         else:
-            print("Error")
+            tkinter.messagebox.showinfo("Error", "Please check your credentials")
         
 class Registration:
-    def __init__(self, bgcol) -> None:
+    def __init__(self, bgcol="lightsteelblue") -> None:
         self.connection = mysql.connector.connect(user="saketh", password="notpassword", host="localhost", database="smartges")
         self.cursor = self.connection.cursor()
 
@@ -94,25 +94,31 @@ class Registration:
         self.pass2Label.grid(row=3, column=1)
 
     def validate(self):
+        if self.passwd != self.pass2wd:
+            return 1
+        
         self.cursor.execute("select * from users")
 
         rows = self.cursor.fetchall()
         for row in rows:
-            if self.name == row[0] and self.passwd == row[1]:
-                return True
-        return False
+            if self.name == row[0]:
+                return 2
+        return 0
         
     def submit(self):
         from main import Home
         
         self.name = self.unameText.get()
         self.passwd = self.passText.get()
+        self.pass2wd = self.pass2Text.get()
 
-        if self.validate():
+        out = self.validate()
+        
+        if not out:
             self.connection.close()
             self.root.destroy()
-            Home(self.name=="admin")
-        else:
-            print("Error")
-if __name__ == "__main__":
-    Login("white")
+            Home()
+        elif out == 1:
+            tkinter.messagebox.showinfo("Error", "The passwords do not match")
+        elif out == 2:
+            tkinter.messagebox.showinfo("Error", "The username already exists, please log in")
