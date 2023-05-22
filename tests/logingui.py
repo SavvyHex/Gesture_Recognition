@@ -1,0 +1,21 @@
+import tkinter
+from tkinter import *
+class login:
+     login=Tk()
+     login.title('Login')
+     login.geometry('350x100')
+     login.configure(bg='lightsteelblue')
+     na=tkinter.Entry(login)
+     na.grid(row=1,column=2)
+     un=tkinter.Entry(login)
+     un.grid(row=2,column=2)
+     ps=tkinter.Entry(login,show="*")
+     ps.grid(row=3,column=2)
+     sb=tkinter.Button(login,text='Submit')
+     sb.grid(row=4,column=5)
+     nalabel=tkinter.Label(login,text='Name:',bg='lightsteelblue')
+     nalabel.grid(row=1,column=1)
+     unlabel=tkinter.Label(login,text='Username:',bg='lightsteelblue')
+     unlabel.grid(row=2,column=1)
+     pslabel=tkinter.Label(login,text='Password:',bg='lightsteelblue')
+     pslabel.grid(row=3,column=1)
