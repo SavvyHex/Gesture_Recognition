@@ -3,7 +3,7 @@ import tkinter.messagebox
 
 import command_controller
 import admin
-import forms
+import home
 
 class Home:
     def __init__(self, admin=False) -> None:
@@ -45,4 +45,4 @@ class Home:
             tkinter.messagebox.showinfo("Error", "You need to be an admin")
         
 if __name__ == "__main__":
-    forms.Login(bgcol="#6C464F")
+    home.Home()
