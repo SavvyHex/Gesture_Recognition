@@ -18,11 +18,12 @@ class AdminScreen:
         self.root.geometry("640x480")
         self.root.configure(bg=self.colours["cool gray"])
 
-        self.thumb = tkinter.BooleanVar(value=False)
-        self.index = tkinter.BooleanVar(value=False)
-        self.middle = tkinter.BooleanVar(value=False)
-        self.ring = tkinter.BooleanVar(value=False)
-        self.pinky = tkinter.BooleanVar(value=False)
+        self.thumb = tkinter.IntVar()
+        self.index = tkinter.IntVar()
+        self.middle = tkinter.IntVar()
+        self.ring = tkinter.IntVar()
+        self.pinky = tkinter.IntVar()
+
         
         self.labels()
         self.textbox()
@@ -50,18 +51,19 @@ class AdminScreen:
 
         self.thumbButton = tkinter.Checkbutton(self.root, text="Thumb", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.thumb)
         self.thumbButton.place(x=50, y=220)
-        
+
         self.indexButton = tkinter.Checkbutton(self.root, text="Index", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.index)
         self.indexButton.place(x=50, y=260)
-        
+
         self.middleButton = tkinter.Checkbutton(self.root, text="Middle", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.middle)
         self.middleButton.place(x=50, y=300)
-        
+
         self.ringButton = tkinter.Checkbutton(self.root, text="Ring", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.ring)
         self.ringButton.place(x=50, y=340)
-        
+
         self.pinkyButton = tkinter.Checkbutton(self.root, text="Pinky", bg=self.colours["cool gray"], font=("Helvetica", 16), variable=self.pinky)
         self.pinkyButton.place(x=50, y=380)
+
         
     def submit(self):
         self.code = f"{int(self.thumb.get())}{int(self.index.get())}{int(self.middle.get())}{int(self.ring.get())}{int(self.pinky.get())}"

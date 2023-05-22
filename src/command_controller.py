@@ -33,21 +33,23 @@ class CommandController:
                         self.fingers.append(1)
                     else:
                         self.fingers.append(0)
-    
+
     def execute_command(self):
         self.get_open_fingers()
 
+        code = ''.join(str(finger) for finger in self.fingers)  # Convert list to a string
+
         for cmd in self.commands:
-            code = ''.join(str(i) for i in self.fingers)
             if code == cmd[0]:
                 try:
                     if self.system.lower() == "nt":
-                        proccess = subprocess.Popen([f"C:/Users/neetu/Desktop/Saketh's Stuff/Gesture_Recognition/src/commands/{cmd[1]}.bat"])
-                        proccess.wait()
+                        process = subprocess.Popen([f"C:/Users/neetu/Desktop/Saketh's Stuff/Gesture_Recognition/src/commands/{cmd[1]}.bat"])
+                        process.wait()
                     else:
                         subprocess.call(["sh", f"src/commands/{cmd[1]}.sh"])
                 except:
                     print("file not found")
+
     
     def run(self):
         cap = cv2.VideoCapture(1)
