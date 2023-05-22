@@ -115,6 +115,8 @@ class Registration:
         out = self.validate()
         
         if not out:
+            self.cursor.execute(f"insert into users values ('{self.name}', '{self.passwd}')")
+            self.connection.commit()
             self.connection.close()
             self.root.destroy()
             Home(False)
