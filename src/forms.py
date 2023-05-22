@@ -117,7 +117,7 @@ class Registration:
         if not out:
             self.connection.close()
             self.root.destroy()
-            Home()
+            Home(False)
         elif out == 1:
             tkinter.messagebox.showinfo("Error", "The passwords do not match")
         elif out == 2:
