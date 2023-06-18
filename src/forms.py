@@ -94,8 +94,14 @@ class Registration:
         self.pass2Label.grid(row=3, column=1)
 
     def validate(self):
+        if not self.passwd or not self.pass2wd or not self.name:
+            return -1
+
         if self.passwd != self.pass2wd:
             return 1
+        
+        if len(self.passwd) < 8:
+            return 3
         
         self.cursor.execute("select * from users")
 
@@ -120,7 +126,11 @@ class Registration:
             self.connection.close()
             self.root.destroy()
             Home(False)
+        elif out == -1:
+            tkinter.messagebox.showinfo("Error", "One or more fields are missing")
         elif out == 1:
             tkinter.messagebox.showinfo("Error", "The passwords do not match")
         elif out == 2:
             tkinter.messagebox.showinfo("Error", "The username already exists, please log in")
+        elif out == 3:
+            tkinter.messagebox.showinfo("Error", "The password must be at least 8 characters long")
