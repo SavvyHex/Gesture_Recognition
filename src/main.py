@@ -38,11 +38,17 @@ class Home:
         self.adminScreen = tkinter.Button(self.root, text="Create A new Command", command=self.admin_screen, width=25)
         self.adminScreen.place(x=200, y=240)
 
+        self.volcnt = tkinter.Button(self.root, text="Volume Control", command=self.volc, width=25)
+        self.volcnt.place(x=200, y=300)
+
     def admin_screen(self):
         if self.isAdmin:
             admin.AdminScreen()
         else:
             tkinter.messagebox.showinfo("Error", "You need to be an admin")
+
+    def volc(self):
+        import volctrl
         
 if __name__ == "__main__":
     home.Home()
