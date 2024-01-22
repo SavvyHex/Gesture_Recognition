@@ -41,6 +41,9 @@ class Home:
         self.volcnt = tkinter.Button(self.root, text="Volume Control", command=self.volc, width=25)
         self.volcnt.place(x=200, y=300)
 
+        self.virt= tkinter.Button(self.root, text="Virtual Mouse", command=self.virtual, width=25)
+        self.virt.place(x=200,y=360)
+
     def admin_screen(self):
         if self.isAdmin:
             admin.AdminScreen()
@@ -49,6 +52,11 @@ class Home:
 
     def volc(self):
         import volctrl
+    
+    def virtual(self):
+        import v_m
+
+    
         
 if __name__ == "__main__":
     home.Home()
